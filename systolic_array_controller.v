@@ -147,11 +147,11 @@ module systolic_array_controller#(parameter NUM_ROW = 8,
                 r_i_down_wr_addr          <= 0;
                 
                 // CHANGE: SRAM pointers should point to the write address at start
-                r_top_rd_wr_addr_from_ctrl = i_top_sram_rd_start_addr;
+                r_top_rd_wr_addr_from_ctrl <= i_top_sram_rd_start_addr;
             end
             else if (i_ctrl_state_to_ctrl == WARMUP)
             begin
-                if (r_top_rd_wr_addr_from_ctrl   < i_top_sram_rd_end_addr + 3)
+                if (r_top_rd_wr_addr_from_ctrl   < i_top_sram_rd_end_addr)
                 begin
                     r_top_rd_wr_en_from_ctrl <= {NUM_COL{READ_ENABLE}};
                     r_valid_top_from_ctrl    <= ~0;

@@ -94,7 +94,7 @@ module tb_systolic_array_top();
         // Enable
         r_i_left_wr_en = 1;
         
-        for(i = 0; i <  NUM_ROW; i = i + 1)
+        for(i = 2; i <  NUM_ROW + 2; i = i + 1)
         begin
             #(`PERIOD)
             // Set the appropriate address in the SRAM
@@ -110,7 +110,7 @@ module tb_systolic_array_top();
             end
         end
         
-        #(`PERIOD)
+        #(`PERIOD * 2)
         // Disable write and clear wires
         r_i_left_wr_en   = 0;
         r_i_left_wr_data = 0;
@@ -122,10 +122,16 @@ module tb_systolic_array_top();
         // Enable
         r_i_top_wr_en = 1;
         
+        // Set the correct start and end address of the top buffer (in this case, 0)
+        r_i_top_sram_rd_start_addr = 5'd0;
+        r_i_top_sram_rd_end_addr   = 5'd8;
+        
         for(i = 0; i <  NUM_COL; i = i + 1) begin
-            #(`PERIOD)
+            
             // Set the appropriate address in the SRAM
-            r_i_top_wr_addr = i;
+            r_i_top_wr_addr = i + 3;
+            
+            #(`PERIOD)
             
             for (j = 0; j < NUM_ROW; j = j + 1) begin
                 // Read value in A, send as data to SRAM
@@ -134,19 +140,18 @@ module tb_systolic_array_top();
             end
         end
         
-        #(`PERIOD * 2)
+        #(`PERIOD)
         // Disable write and clear wires
         r_i_top_wr_en   = 0;
-        r_i_top_wr_data = 0;
         r_i_top_wr_addr = 0;
+        
+        #(`PERIOD)
+        r_i_top_wr_data = 0;
+        
         
         // ------------------------------------------------
         // ------------------------------------------------ WARMUP stage
         // ------------------------------------------------
-        
-        // Set the correct start and end address of the top buffer (in this case, 0)
-        r_i_top_sram_rd_start_addr = 5'd0;
-        r_i_top_sram_rd_end_addr   = 5'd4;
         
         // ------------------------------------------------ Fill from the TOP BUFFER
         
