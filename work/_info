@@ -9,7 +9,7 @@ z2
 cModel Technology
 dD:/GT-ece/Spring 2024/ECE8803_HML/project/project_vegeta_chip-main
 vsram_bank_sp
-Z0 !s110 1713379195
+Z0 !s110 1713489245
 !i10b 1
 !s100 [nQTC?F0jdjmd;H`olBPk0
 ICMQoo:zQfk]68D1GY`UJK0
@@ -23,20 +23,20 @@ Z4 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z5 !s108 1713379195.000000
+Z5 !s108 1713489245.000000
 !s107 /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/sram_bank_sp.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/sram_bank_sp.v|
 !i113 1
 Z6 o-work work
 Z7 tCvgOpt 0
 vsystolic_array_controller
-R0
+!s110 1713490249
 !i10b 1
-!s100 aZMoRAMmQSUBm>=bVPZ[i1
-IPJ[L^0aSXjzD`M2eR>FWg3
+!s100 >Olk3AzzJ9VeFQZ?WC<AH2
+I0^iaz=MMK0Fh_5gEUeU^50
 R1
 R2
-w1713376018
+w1713490235
 8/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_controller.v
 F/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_controller.v
 Z8 L0 36
@@ -44,7 +44,7 @@ R4
 r1
 !s85 0
 31
-R5
+!s108 1713490249.000000
 !s107 /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_controller.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_controller.v|
 !i113 1
@@ -72,13 +72,13 @@ R5
 R6
 R7
 vsystolic_array_pe
-R0
+!s110 1713489934
 !i10b 1
-!s100 m]_HPZePKBei9nd8>01k>0
-Ibn5SUDJQ2^e4J70I?bA[52
+!s100 McIzdj<[98RVkmmWW;W@k0
+I1L3W_h@:9gWBbRkS@DGDA0
 R1
 R2
-R3
+w1713488702
 8/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_pe.v
 F/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_pe.v
 L0 27
@@ -86,20 +86,20 @@ R4
 r1
 !s85 0
 31
-R5
+!s108 1713489934.000000
 !s107 /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_pe.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_pe.v|
 !i113 1
 R6
 R7
 vsystolic_array_top
-R0
+!s110 1713489938
 !i10b 1
-!s100 h]^2?`ICZANi:f`@T9j>`2
-IX=oGM`1WZiKTD4hHXl`fS0
+!s100 j:cYi8aTA;8?Mea[WZDEd1
+IEQY64d2BkJGm0ejMO]`g42
 R1
 R2
-w1713376644
+w1713489927
 8/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v
 F/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v
 L0 34
@@ -107,20 +107,20 @@ R4
 r1
 !s85 0
 31
-R5
+!s108 1713489938.000000
 !s107 /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v|
 !i113 1
 R6
 R7
 vtb_systolic_array_top
-R0
+!s110 1713489786
 !i10b 1
-!s100 cDRXU2Vm02J55h@Z?2^6Y3
-Iznzz^dTRWaKX1>jiWFT>B3
+!s100 :6SO>n4E9KgZnkQ?UzMZm1
+IEJ>TbW>1B?fbi]?C2nO4l3
 R1
 R2
-w1713379178
+w1713489778
 8/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v
 F/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v
 L0 38
@@ -128,7 +128,7 @@ R4
 r1
 !s85 0
 31
-R5
+!s108 1713489785.000000
 !s107 /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v|
 !i113 1

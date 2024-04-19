@@ -38,7 +38,7 @@ module systolic_array_top#(parameter NUM_ROW = 8,
                            parameter LOG2_SRAM_BANK_DEPTH = 10,
                            parameter SKEW_TOP_INPUT_EN = 1,
                            parameter SKEW_LEFT_INPUT_EN = 1)
-                         (clk,
+                          (clk,
                            rst_n,
                            i_top_wr_en,
                            i_top_wr_data,
@@ -89,8 +89,8 @@ module systolic_array_top#(parameter NUM_ROW = 8,
     input   [LOG2_SRAM_BANK_DEPTH   -1: 0]                      i_down_sram_rd_start_addr ;
     input   [LOG2_SRAM_BANK_DEPTH   -1: 0]                      i_down_sram_rd_end_addr   ;
     
-    wire    [DATA_WIDTH             -1: 0]                      w_i_top_wr_data     [0 : NUM_COL-1] ;
-    wire    [DATA_WIDTH             -1: 0]                      w_o_top_rd_data     [0 : NUM_COL-1] ;
+    wire    [DATA_WIDTH             : 0]                      w_i_top_wr_data     [0 : NUM_COL-1] ; // Changed to DATAWIDTH+1
+    wire    [DATA_WIDTH             : 0]                      w_o_top_rd_data     [0 : NUM_COL-1] ; // Changed to DATAWIDTH+1
     wire    [DATA_WIDTH             -1: 0]                      w_i_left_wr_data    [0 : NUM_ROW-1] ;
     wire    [DATA_WIDTH             -1: 0]                      w_o_left_rd_data    [0 : NUM_ROW-1] ;
     wire                                                        w_top_rd_wr_en_from_ctrl            ;   // should this be array
@@ -144,11 +144,11 @@ module systolic_array_top#(parameter NUM_ROW = 8,
         
         for(gc = 0; gc<NUM_COL; gc = gc+1)
             begin : sram
-            assign  w_i_top_wr_data [gc] = {0, i_top_wr_data[gc*DATA_WIDTH +:  DATA_WIDTH]};
+            assign  w_i_top_wr_data [gc] = {1, i_top_wr_data[gc*DATA_WIDTH +:  DATA_WIDTH]};
             sram_bank_sp#(
             .SRAM_BANK_DATA_WIDTH   (DATA_WIDTH+1),  // +1 for the CMD
             .SRAM_BANK_ADDR_WIDTH   (LOG2_SRAM_BANK_DEPTH),
-            .SRAM_BANK_DEPTH        (1>>LOG2_SRAM_BANK_DEPTH)
+            .SRAM_BANK_DEPTH        (1<<LOG2_SRAM_BANK_DEPTH)
             ) sram_bank_sp_top_inst(
             .clk                    (clk),
             .rst_n                  (rst_n),
@@ -180,11 +180,11 @@ module systolic_array_top#(parameter NUM_ROW = 8,
     
     for(gc = 0; gc<NUM_COL; gc = gc+1)
         begin : sram_bank_top
-        assign  w_i_top_wr_data [gc] = {0, i_top_wr_data[gc*DATA_WIDTH +:  DATA_WIDTH]};
+        assign  w_i_top_wr_data [gc] = {1, i_top_wr_data[gc*DATA_WIDTH +:  DATA_WIDTH]};
         sram_bank_sp#(
         .SRAM_BANK_DATA_WIDTH   (DATA_WIDTH+1),  // +1 for the CMD
         .SRAM_BANK_ADDR_WIDTH   (LOG2_SRAM_BANK_DEPTH),
-        .SRAM_BANK_DEPTH        (1>>LOG2_SRAM_BANK_DEPTH)
+        .SRAM_BANK_DEPTH        (1<<LOG2_SRAM_BANK_DEPTH)
         ) sram_bank_sp_top_inst(
         .clk                    (clk),
         .rst_n                  (rst_n),
@@ -231,10 +231,11 @@ module systolic_array_top#(parameter NUM_ROW = 8,
         
         for(gr = 0; gr<NUM_ROW; gr = gr+1)
             begin : sram_bank_left
+            assign  w_i_left_wr_data [gr] = {0, i_left_wr_data[gr*DATA_WIDTH +:  DATA_WIDTH]};
             sram_bank_sp#(
             .SRAM_BANK_DATA_WIDTH   (DATA_WIDTH+1),  // +1 for the CMD
             .SRAM_BANK_ADDR_WIDTH   (LOG2_SRAM_BANK_DEPTH),
-            .SRAM_BANK_DEPTH        (1>>LOG2_SRAM_BANK_DEPTH)
+            .SRAM_BANK_DEPTH        (1<<LOG2_SRAM_BANK_DEPTH)
             ) sram_bank_sp_left_inst(
             .clk                    (clk),
             .rst_n                  (rst_n),
@@ -268,10 +269,11 @@ module systolic_array_top#(parameter NUM_ROW = 8,
     
     for(gr = 0; gr<NUM_ROW; gr = gr+1)
         begin : sram_bank_sp_left
+        assign  w_i_left_wr_data [gr] = {0, i_left_wr_data[gr*DATA_WIDTH +:  DATA_WIDTH]};
         sram_bank_sp#(
         .SRAM_BANK_DATA_WIDTH   (DATA_WIDTH+1),  // +1 for the CMD
         .SRAM_BANK_ADDR_WIDTH   (LOG2_SRAM_BANK_DEPTH),
-        .SRAM_BANK_DEPTH        (1>>LOG2_SRAM_BANK_DEPTH)
+        .SRAM_BANK_DEPTH        (1<<LOG2_SRAM_BANK_DEPTH)
         ) sram_bank_sp_left_inst(
         .clk                    (clk),
         .rst_n                  (rst_n),
@@ -294,7 +296,7 @@ module systolic_array_top#(parameter NUM_ROW = 8,
         sram_bank_sp#(
         .SRAM_BANK_DATA_WIDTH       (ACCU_DATA_WIDTH),  // +1 for the CMD
         .SRAM_BANK_ADDR_WIDTH       (LOG2_SRAM_BANK_DEPTH),
-        .SRAM_BANK_DEPTH            (1>>LOG2_SRAM_BANK_DEPTH)
+        .SRAM_BANK_DEPTH            (1<<LOG2_SRAM_BANK_DEPTH)
         ) sram_bank_sp_down_inst(
         .clk                        (clk),
         .rst_n                      (rst_n),
@@ -358,7 +360,8 @@ module systolic_array_top#(parameter NUM_ROW = 8,
     .NUM_ROW                            (NUM_ROW),
     .NUM_COL                            (NUM_COL),
     .DATA_WIDTH                         (DATA_WIDTH),
-    .ACCU_DATA_WIDTH                    (ACCU_DATA_WIDTH)
+    .ACCU_DATA_WIDTH                    (ACCU_DATA_WIDTH),
+    .LOG2_SRAM_BANK_DEPTH (LOG2_SRAM_BANK_DEPTH)
     ) inst_sa_controller(
     .clk                                (clk),
     .rst_n                              (rst_n),
@@ -376,6 +379,12 @@ module systolic_array_top#(parameter NUM_ROW = 8,
     
     .o_down_rd_wr_en_from_ctrl          (w_down_rd_wr_en_from_ctrl),
     .o_down_rd_wr_addr_from_ctrl        (w_down_rd_wr_addr_from_ctrl),
+    
+    .i_top_sram_rd_start_addr (i_top_sram_rd_start_addr),
+    .i_top_sram_rd_end_addr (i_top_sram_rd_end_addr),
+    
+    .i_left_sram_rd_start_addr (i_left_sram_rd_start_addr),
+    .i_left_sram_rd_end_addr (i_left_sram_rd_end_addr),
     
     .i_sa_datapath_valid_down_to_ctrl   (w_o_valid_down_from_sa),
     .o_valid_top_from_ctrl              (w_top_valid_from_ctrl),

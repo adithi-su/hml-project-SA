@@ -94,18 +94,23 @@ module tb_systolic_array_top();
         // Enable
         r_i_left_wr_en = 1;
         
-        for(i = 0; i <  NUM_ROW; i = i + 1) begin
+        for(i = 0; i <  NUM_ROW; i = i + 1)
+        begin
             #(`PERIOD)
-            for (j = 0; j < NUM_COL; j = j + 1) begin
+            // Set the appropriate address in the SRAM
+            r_i_left_wr_addr = i;
+            $display("addr   = %d\n", r_i_left_wr_addr);
+            
+            for (j = 0; j < NUM_COL; j = j + 1)
+            begin
                 // Read value in A, send as data to SRAM
                 // Data is stored as NUM_COL * DATA_WIDTH
                 r_i_left_wr_data[DATA_WIDTH * j +: DATA_WIDTH] = A[i + j * NUM_COL];
+                $display("data, i, j                           = %d, %d, %d\n", A[i + j * NUM_COL], i, j);
             end
-            
-            // Set the appropriate address in the SRAM
-            r_i_left_wr_addr = i;
         end
         
+        #(`PERIOD)
         // Disable write and clear wires
         r_i_left_wr_en   = 0;
         r_i_left_wr_data = 0;
@@ -119,16 +124,17 @@ module tb_systolic_array_top();
         
         for(i = 0; i <  NUM_COL; i = i + 1) begin
             #(`PERIOD)
-            for (j = 0; j < NUM_COL; j = j + 1) begin
+            // Set the appropriate address in the SRAM
+            r_i_top_wr_addr = i;
+            
+            for (j = 0; j < NUM_ROW; j = j + 1) begin
                 // Read value in A, send as data to SRAM
                 // Data is stored as NUM_COL * DATA_WIDTH
-                r_i_top_wr_data[DATA_WIDTH * j +: DATA_WIDTH] = B[i + j * NUM_COL];
+                r_i_top_wr_data[DATA_WIDTH * j +: DATA_WIDTH] = B[i + j * NUM_ROW];
             end
-            
-            // Set the appropriate address in the SRAM
-            r_i_left_wr_addr = i;
         end
         
+        #(`PERIOD * 2)
         // Disable write and clear wires
         r_i_top_wr_en   = 0;
         r_i_top_wr_data = 0;
@@ -139,20 +145,23 @@ module tb_systolic_array_top();
         // ------------------------------------------------
         
         // Set the correct start and end address of the top buffer (in this case, 0)
-        r_i_top_sram_rd_start_addr = 10'd0;
-        r_i_top_sram_rd_end_addr   = 10'd16;
+        r_i_top_sram_rd_start_addr = 5'd0;
+        r_i_top_sram_rd_end_addr   = 5'd4;
         
         // ------------------------------------------------ Fill from the TOP BUFFER
         
         r_i_ctrl_state = WARMUP;
+        
+        // Let the filling happen
+        #(`PERIOD * 10)
         
         // ------------------------------------------------
         // ------------------------------------------------ STEADY stage
         // ------------------------------------------------
         
         // Set the correct start and end address of the left buffer (in this case, 0)
-        r_i_left_sram_rd_start_addr = 10'd0;
-        r_i_left_sram_rd_end_addr   = 10'd16;
+        r_i_left_sram_rd_start_addr = 5'd0;
+        r_i_left_sram_rd_end_addr   = 5'd4;
         
         // ------------------------------------------------ Fill from the TOP BUFFER
         
@@ -168,7 +177,8 @@ module tb_systolic_array_top();
     .NUM_COL                    (NUM_COL),
     .DATA_WIDTH                 (DATA_WIDTH),
     .ACCU_DATA_WIDTH            (ACCU_DATA_WIDTH),
-    .LOG2_SRAM_BANK_DEPTH       (LOG2_SRAM_BANK_DEPTH)
+    .LOG2_SRAM_BANK_DEPTH       (LOG2_SRAM_BANK_DEPTH),
+    .SKEW_TOP_INPUT_EN (0)
     )inst_sa_datapath(
     .clk                        (clk),
     .rst_n                      (rst_n),

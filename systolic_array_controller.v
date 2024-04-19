@@ -78,9 +78,9 @@ module systolic_array_controller#(parameter NUM_ROW = 8,
     input                                                       rst_n                               ;
     input   [CTRL_WIDTH             -1: 0]                      i_ctrl_state_to_ctrl                ;
     input                                                       i_top_wr_en_to_ctrl                 ;
-    input   [NUM_COL*DATA_WIDTH     -1: 0]                      i_top_wr_addr_to_ctrl               ;
+    input   [LOG2_SRAM_BANK_DEPTH     -1: 0]                      i_top_wr_addr_to_ctrl               ; // Change from NUMCOL*DW to LOG2
     input                                                       i_left_wr_en_to_ctrl                ;
-    input   [NUM_ROW*DATA_WIDTH     -1: 0]                      i_left_wr_addr_to_ctrl              ;
+    input   [LOG2_SRAM_BANK_DEPTH    -1: 0]                      i_left_wr_addr_to_ctrl              ;// Change from NUMCOL*DW to LOG2
     input                                                       i_down_rd_en_to_ctrl                ;
     input   [LOG2_SRAM_BANK_DEPTH   -1: 0]                      i_down_rd_addr_to_ctrl              ;
     
@@ -151,7 +151,7 @@ module systolic_array_controller#(parameter NUM_ROW = 8,
             end
             else if (i_ctrl_state_to_ctrl == WARMUP)
             begin
-                if (r_top_rd_wr_addr_from_ctrl   < i_top_sram_rd_end_addr)
+                if (r_top_rd_wr_addr_from_ctrl   < i_top_sram_rd_end_addr + 3)
                 begin
                     r_top_rd_wr_en_from_ctrl <= {NUM_COL{READ_ENABLE}};
                     r_valid_top_from_ctrl    <= ~0;

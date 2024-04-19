@@ -5,6 +5,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	systolic_array_datapath
 
+} {} {}} /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v {1 {vlog -work work -stats=none /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/tb_systolic_array_top.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_systolic_array_top
+
+Top level modules:
+	tb_systolic_array_top
+
 } {} {}} {{D:/GT-ece/Spring 2024/ECE8803_HML/project/Dense_SA-main/systolic_array_top.v}} {0 {vlog -work work {/home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/D:/GT-ece/Spring 2024/ECE8803_HML/project/Dense_SA-main/systolic_array_top.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 Start time: 13:56:24 on Apr 17,2024
@@ -62,7 +69,9 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 -- Compiling module systolic_array_top
 ** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(147): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
 ** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(183): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(322): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
+** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(234): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
+** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(272): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
+** Warning: (vlog-2121) /home/span/Work/Acads/ECE8803HML/Project/DENSE/hml-project-SA/systolic_array_top.v(324): Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
 
 Top level modules:
 	systolic_array_top
