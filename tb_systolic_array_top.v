@@ -34,7 +34,6 @@
 
 `define PERIOD 10
 
-
 module tb_systolic_array_top();
     parameter                                       NUM_ROW                             = 4  ;
     parameter                                       NUM_COL                             = 4  ;
